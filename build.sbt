@@ -13,3 +13,5 @@ libraryDependencies += "com.typesafe" % "config" % "1.2.1"
 libraryDependencies += "org.mashupbots.socko" %% "socko-webserver" % "0.6.0"
 
 libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.11.5"
+
+libraryDependencies += "org.scala-sbt" % "command" % "0.13.9"
