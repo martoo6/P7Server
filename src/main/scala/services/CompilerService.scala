@@ -3,7 +3,7 @@ package services
 import java.io.File
 import javax.script.ScriptEngineManager
 
-import models.AutocompleteRequest
+import models.{Autocomplete, AutocompleteRequest}
 
 import scala.reflect.internal.util.{OffsetPosition, BatchSourceFile}
 import scala.reflect.io.AbstractFile
@@ -29,7 +29,7 @@ class CompilerService {
   //TODO: It should cancel current operation if autocomplete is asked again.
   //TODO: Routes should be extracted from configuration file probably.
 
-  def complete(request: AutocompleteRequest): String ={
+  def complete(request: Autocomplete): String ={
     reloadAll(request.path.trim+"/src/main/scala/")
     //Load file to analize
     val filePath = request.path.trim+"/src/main/scala/"+request.fileName;
