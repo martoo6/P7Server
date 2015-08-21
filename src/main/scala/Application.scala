@@ -56,7 +56,7 @@ object Application extends App {
 			}
 
 			case GET(PathSegments("autocomplete" :: line :: offset :: path :: fileName :: Nil)) => {
-				implicit val CodecAutocomplete = casecodec4(Autocomplete.apply, Autocomplete.unapply)("line", "offset", "path", "lapijadenico")
+				implicit val CodecAutocomplete = casecodec4(Autocomplete.apply, Autocomplete.unapply)("line", "offset", "path", "fileName")
 				val a = Autocomplete(line.toInt, offset.toInt, path, fileName).asJson
 				//request.response.write(HttpResponseStatus.OK, s"autocomplete/$line/$offset/$path/$fileName")
 				request.response.write(HttpResponseStatus.OK, s"$a ᕕ( ᐛ )ᕗ" )
