@@ -3,7 +3,7 @@ package services
 import java.io.File
 import javax.script.ScriptEngineManager
 
-import models.{Autocomplete, AutocompleteRequest}
+import models.{Autocomplete}
 
 import scala.reflect.internal.util.{OffsetPosition, BatchSourceFile}
 import scala.reflect.io.AbstractFile
@@ -42,8 +42,7 @@ class CompilerService {
     val myBsf = new BatchSourceFile(myFile, formattedContent)
     val pos = new OffsetPosition(myBsf, absolutePos)
 
-    compiler.ask {
-      ()=>
+    compiler.ask { ()=>
         val response = new Response[List[compiler.Member]]
         //Twice because Scala Presentation compiler sucks ???
         compiler.askTypeCompletion(pos, response)

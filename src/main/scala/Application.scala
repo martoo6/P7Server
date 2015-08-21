@@ -10,6 +10,7 @@ import org.mashupbots.socko.events.HttpResponseStatus
 import org.mashupbots.socko.handlers.{StaticContentHandler, StaticFileRequest}
 import org.mashupbots.socko.routes._
 import org.mashupbots.socko.webserver.{WebServer, WebServerConfig}
+import services.CompilerServiceObj
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -22,7 +23,7 @@ object Application extends App {
   val classpathRoot = new File(ClassLoader.getSystemClassLoader.getResource("").getPath());
   Window.create(s"file://$classpathRoot/../../../src/main/www/index.html").foreach { w =>
     w.show
-    w.maximize
+    //w.maximize
     w.openDevtools
     w.focus(true)
     //w.onBlur(println("we were blurred"))
@@ -37,6 +38,24 @@ object Application extends App {
       System.exit(0)
     }
   }
+
+	Window.create(s"file://$classpathRoot/../../../src/main/www/index.html").foreach { w =>
+		w.show
+		w.maximize
+		w.openDevtools
+		w.focus(true)
+		//w.onBlur(println("we were blurred"))
+		//w.onFocus(println("we were focused"))
+		//    Menu.create("MyMenu").foreach { m =>
+		//      val i = MenuItem("Item1", _ => println("Item1 was clicked"))
+		//      m.addItem(i)
+		//      m.popup(w)
+		//    }
+		w.onClosed {
+			println("we were closed")
+			System.exit(0)
+		}
+	}
 
 //######################################################################################################################
 //  WebServer
@@ -57,9 +76,9 @@ object Application extends App {
 
 			case GET(PathSegments("autocomplete" :: line :: offset :: path :: fileName :: Nil)) => {
 				implicit val CodecAutocomplete = casecodec4(Autocomplete.apply, Autocomplete.unapply)("line", "offset", "path", "fileName")
-				val a = Autocomplete(line.toInt, offset.toInt, path, fileName).asJson
+				val res = CompilerServiceObj.complete(Autocomplete(line.toInt, offset.toInt, path, fileName))
 				//request.response.write(HttpResponseStatus.OK, s"autocomplete/$line/$offset/$path/$fileName")
-				request.response.write(HttpResponseStatus.OK, s"$a ᕕ( ᐛ )ᕗ" )
+				request.response.write(HttpResponseStatus.OK, res)
 			}
 
 			case (POST(Path("/sketch"))) => {

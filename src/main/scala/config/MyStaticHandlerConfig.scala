@@ -8,6 +8,5 @@ import org.mashupbots.socko.handlers.StaticContentHandlerConfig
  */
 object MyStaticHandlerConfig extends ExtensionId[StaticContentHandlerConfig] with ExtensionIdProvider {
 	override def lookup = MyStaticHandlerConfig
-	override def createExtension(system: ExtendedActorSystem) =
-		new StaticContentHandlerConfig(system.settings.config, "my-static-content-handler")
+	override def createExtension(system: ExtendedActorSystem) = new StaticContentHandlerConfig(system.settings.config, "my-static-content-handler")
 }

@@ -1,0 +1,11 @@
+{
+  "name": "ScalaThreeJS",
+  "description": "Super Cool ThreeJS With Scala Goodiness",
+  "version": "0.1",
+  "main": "index.html",
+  "window": {
+    "toolbar": false,
+    "width": 1024,
+    "height": 768
+  }
+}
